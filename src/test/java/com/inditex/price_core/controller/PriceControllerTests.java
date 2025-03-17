@@ -54,7 +54,7 @@ public class PriceControllerTests {
 
     @Test
     void testPriceControllerGetPrice() throws Exception {
-        String validDate = "2023-06-15 14:30:00";
+        String validDate = "2020-06-15 14:30:00";
 
         when(priceService.getPrice(1L, 12345L, DateFormatterUtils.parseApplicationDate(validDate)))
                 .thenReturn(Optional.of(
@@ -66,7 +66,7 @@ public class PriceControllerTests {
                         .param("productId", "12345")
                         .param("applicationDate", validDate)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andExpect(jsonPath("$.brandId").value(1L));
     }
 
     @Test
@@ -74,6 +74,20 @@ public class PriceControllerTests {
         String validDate = "2023-06-15 14:30:00";
         LocalDateTime parsedDate = DateFormatterUtils.parseApplicationDate(validDate);
         assertThat(parsedDate).isNotNull();
+    }
+
+
+    @Test
+    public void shouldRetrieveNotFoundException() throws Exception {
+        String validDate = "2023-06-15 14:30:00";
+
+        mockMvc.perform(get("/prices")
+                        .param("brandId", "1")
+                        .param("productId", "12345")
+                        .param("applicationDate", validDate)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value(DateFormatterUtils.getNotFoundPrice()));
     }
 
     @Test
@@ -87,7 +101,6 @@ public class PriceControllerTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value(DateFormatterUtils.getErrortypeMessage()));
-
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.inditex.price_core.usecase;
 import com.inditex.price_core.application.usecase.PriceRetrievalUseCaseImpl;
 import com.inditex.price_core.domain.model.Price;
 import com.inditex.price_core.infrasctruture.repository.PriceJPARepository;
-import com.inditex.price_core.infrasctruture.adapter.controller.PriceJPARepositoryAdapter;
+import com.inditex.price_core.infrasctruture.adapter.db.PriceJPARepositoryAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;

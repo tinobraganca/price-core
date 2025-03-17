@@ -6,7 +6,6 @@ import com.inditex.price_core.domain.model.Price;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,28 +27,7 @@ public class PriceServiceTests {
 
     @InjectMocks
     private PriceService priceService;
-
-    private Price price1;
-    private Price price2;
-    private Price price3;
-    private Price price4;
-
-    @BeforeEach
-    void setUp() {
-        price1 = new Price(1L, LocalDateTime.of(2020, 6, 14, 0, 0),
-                LocalDateTime.of(2020, 12, 31, 23, 59), 1, 35455L,
-                0, BigDecimal.valueOf(35.50), "EUR");
-        price2 = new Price(1L, LocalDateTime.of(2020, 6, 14, 15, 0),
-                LocalDateTime.of(2020, 6, 14, 18, 30), 2, 35455L,
-                1, BigDecimal.valueOf(25.45), "EUR");
-        price3 = new Price(1L, LocalDateTime.of(2020, 6, 15, 0, 0),
-                LocalDateTime.of(2020, 6, 15, 11, 0), 3, 35455L,
-                1, BigDecimal.valueOf(30.50), "EUR");
-        price4 = new Price(1L, LocalDateTime.of(2020, 6, 15, 16, 0),
-                LocalDateTime.of(2020, 12, 31, 23, 59), 4, 35455L,
-                1, BigDecimal.valueOf(38.95), "EUR");
-    }
-
+    
     @ParameterizedTest(name = "[executed - {index} - {0}]")
     @CsvSource({
             "2020-06-14T10:00:00, 35.50",

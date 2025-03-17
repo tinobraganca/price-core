@@ -12,7 +12,13 @@ public class DateFormatterUtils {
 
     private static final String ERRORTYPEMESSAGE = "Type Mismatch";
 
+    private static final String PRICENOTFOUND = "Not found";
+
     private static final String INTERNALSERVERERROR = "Internal Server Error";
+
+    public static String getNotFoundPrice(){
+        return PRICENOTFOUND;
+    }
 
     public static String getInternalErrorMessage(){
         return INTERNALSERVERERROR;

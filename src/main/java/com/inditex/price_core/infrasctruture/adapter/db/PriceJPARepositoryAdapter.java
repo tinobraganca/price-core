@@ -1,4 +1,4 @@
-package com.inditex.price_core.infrasctruture.adapter.controller;
+package com.inditex.price_core.infrasctruture.adapter.db;
 
 import com.inditex.price_core.domain.model.Price;
 import com.inditex.price_core.domain.port.out.PriceRepository;

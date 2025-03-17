@@ -2,6 +2,7 @@ package com.inditex.price_core.infrasctruture.adapter.controller;
 
 import com.inditex.price_core.application.service.PriceService;
 import com.inditex.price_core.infrasctruture.adapter.controller.api.PriceControllerAPI;
+import com.inditex.price_core.infrasctruture.adapter.controller.exception.PriceNotFoundException;
 import com.inditex.price_core.infrasctruture.dto.PriceDto;
 import com.inditex.price_core.infrasctruture.utils.DateFormatterUtils;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class PriceController implements PriceControllerAPI {
         LOGGER.info("Getting price for Brand: {}, Product: {}, Date: {}", brandId, productId, applicationDate);
 
         PriceDto ret = priceService.getPrice(brandId, productId, DateFormatterUtils.parseApplicationDate(applicationDate))
-                .map(PriceDto::fromDomain).orElse(new PriceDto());
+                .map(PriceDto::fromDomain).orElseThrow(() -> new PriceNotFoundException("Not found a price with this parameters"));
         LOGGER.info("Retrieved price for Brand: {}, Product: {}, Date: {}", brandId, productId, applicationDate);
 
         return ResponseEntity.status(HttpStatus.OK).body(ret);

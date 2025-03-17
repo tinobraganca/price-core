@@ -1,6 +1,7 @@
 package com.inditex.price_core.infrasctruture.adapter.controller;
 
 import com.inditex.price_core.infrasctruture.adapter.controller.exception.InvalidDateFormatException;
+import com.inditex.price_core.infrasctruture.adapter.controller.exception.PriceNotFoundException;
 import com.inditex.price_core.infrasctruture.dto.ErrorResponse;
 import com.inditex.price_core.infrasctruture.utils.DateFormatterUtils;
 import org.slf4j.Logger;
@@ -22,6 +23,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 
     }
+    @ExceptionHandler(PriceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePriceNotFoundeException(PriceNotFoundException e) {
+        LOG.error("method=handlePriceNotFoundeException message={}", e.getMessage(), e);
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), DateFormatterUtils.getNotFoundPrice(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+
+    }
+
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException ex) {
